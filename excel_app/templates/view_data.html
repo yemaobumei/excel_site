@@ -1,0 +1,14 @@
+<h1>数据统计结果</h1>
+{% if stats %}
+    <h3>基本信息</h3>
+    <p>总行数: {{ stats.row_count }}</p>
+    <p>列名: {{ stats.columns|join:", " }}</p>
+
+    <h3>数据预览</h3>
+    {{ stats.head|safe }}
+
+    <h3>统计信息</h3>
+    {{ stats.describe|safe }}
+{% else %}
+    <p>暂无数据</p>
+{% endif %}
