@@ -4,10 +4,11 @@ register = template.Library()
 def get_item(dictionary, key):
     return dictionary.get(key)
 
+# templatetags/custom_filters.py
 @register.filter
-def ratio(value, max_value):
+def ratio(value, total):
     """计算百分比"""
     try:
-        return (value / max_value) * 100
+        return (value / total) * 100
     except ZeroDivisionError:
         return 0
