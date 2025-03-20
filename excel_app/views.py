@@ -65,7 +65,6 @@ def handle_uploaded_excel(file_path):
                             assignment=assignments[col],
                             defaults={'grade': score_value}
                         )
-                        print(score_value)
                     else:
                         Score.objects.update_or_create(
                             student=student,
@@ -122,8 +121,8 @@ def view_data(request):
             'student': student,
             'grades': grades_dict
         })
-    print("作业ID列表:", [a.id for a in assignments])
-    print("第一个学生的成绩映射:", students_data[0]['grades'])
+    # print("作业ID列表:", [a.id for a in assignments])
+    # print("第一个学生的成绩映射:", students_data[0]['grades'])
 
     return render(request, 'view_data.html', {
         'assignments': assignments,

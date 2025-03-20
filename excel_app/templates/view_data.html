@@ -23,6 +23,16 @@
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
             z-index: 1;
         }
+        thead>tr {
+            overflow : visible;
+        }
+        /* 自定义颜色类 */
+        .grade-a { background-color: #d1e7dd; color: #0f5132; }
+        .grade-b { background-color: #cfe2ff; color: #084298; }
+        .grade-c { background-color: #cff4fc; color: #087990; }
+        .grade-d { background-color: #fff3cd; color: #997404; }
+        .grade-f { background-color: #f8d7da; color: #842029; }
+
     </style>
 </head>
 <body class="bg-light">
@@ -36,40 +46,40 @@
 
             <div class="card-body p-0">
                 <div class="table-responsive">
-<table class="table table-hover mb-0">
-    <thead>
-        <tr>
-            <th>学号</th>
-            <th>姓名</th>
-            {% for assignment in assignments %}
-            <th class="score-cell" title="{{ assignment.title }}">
-                {{ assignment.title|truncatechars:8 }} (等级)
-            </th>
-            {% endfor %}
-        </tr>
-    </thead>
-    <tbody>
-        {% for data in students_data %}
-        <tr>
-            <td>{{ data.student.student_id }}</td>
-            <td>{{ data.student.name }}</td>
-            {% for assignment in assignments %}
-            <td class="score-cell
-                {% with grade=data.grades.get %}
-                    {% if grade == 'A' %}bg-success-subtle
-                    {% elif grade == 'B' %}bg-primary-subtle
-                    {% elif grade == 'C' %}bg-info-subtle
-                    {% elif grade == 'D' %}bg-warning-subtle
-                    {% elif grade == 'F' %}bg-danger-subtle
-                    {% endif %}
-                {% endwith %}">
-                 {{ data.grades|get_item:assignment.id|default:"-" }}
-            </td>
-            {% endfor %}
-        </tr>
-        {% endfor %}
-    </tbody>
-</table>
+                    <table class="table table-hover mb-0">
+                        <thead>
+                            <tr>
+                                <th>学号</th>
+                                <th>姓名</th>
+                                {% for assignment in assignments %}
+                                <th class="score-cell" title="{{ assignment.title }}">
+                                    {{ assignment.title|truncatechars:8 }} (等级)
+                                </th>
+                                {% endfor %}
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for data in students_data %}
+                            <tr>
+                                <td>{{ data.student.student_id }}</td>
+                                <td>{{ data.student.name }}</td>
+                                {% for assignment in assignments %}
+                                <td class="score-cell
+                                    {% with grade=data.grades|get_item:assignment.id|default:"-" %}
+                                        {% if grade == 'A' %}bg-success-subtle
+                                        {% elif grade == 'B' %}bg-primary-subtle
+                                        {% elif grade == 'C' %}bg-info-subtle
+                                        {% elif grade == 'D' %}bg-warning-subtle
+                                        {% elif grade == 'F' %}bg-danger-subtle
+                                        {% endif %}
+                                    {% endwith %}">
+                                     {{ data.grades|get_item:assignment.id|default:"-" }}
+                                </td>
+                                {% endfor %}
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
                 </div>
             </div>
 
