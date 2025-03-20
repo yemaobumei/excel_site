@@ -1,14 +1,90 @@
-<h1>数据统计结果</h1>
-{% if stats %}
-    <h3>基本信息</h3>
-    <p>总行数: {{ stats.row_count }}</p>
-    <p>列名: {{ stats.columns|join:", " }}</p>
+{# 在模板顶部添加自定义过滤器 #}
+{% load static %}
+{% load my_filters %}
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>学生成绩表</title>
+    <link href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .table-hover tbody tr:hover {
+            background-color: rgba(13, 110, 253, 0.05);
+        }
+        .score-cell {
+            min-width: 100px;
+            text-align: center;
+        }
+        .fixed-header {
+            position: sticky;
+            top: 0;
+            background: white;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            z-index: 1;
+        }
+    </style>
+</head>
+<body class="bg-light">
+    <div class="container py-4">
+        <div class="card shadow">
+            <div class="card-header bg-primary text-white">
+                <h3 class="mb-0">
+                    <i class="bi bi-table me-2"></i>学生成绩明细表
+                </h3>
+            </div>
 
-    <h3>数据预览</h3>
-    {{ stats.head|safe }}
+            <div class="card-body p-0">
+                <div class="table-responsive">
+<table class="table table-hover mb-0">
+    <thead>
+        <tr>
+            <th>学号</th>
+            <th>姓名</th>
+            {% for assignment in assignments %}
+            <th class="score-cell" title="{{ assignment.title }}">
+                {{ assignment.title|truncatechars:8 }} (等级)
+            </th>
+            {% endfor %}
+        </tr>
+    </thead>
+    <tbody>
+        {% for data in students_data %}
+        <tr>
+            <td>{{ data.student.student_id }}</td>
+            <td>{{ data.student.name }}</td>
+            {% for assignment in assignments %}
+            <td class="score-cell
+                {% with grade=data.grades.get %}
+                    {% if grade == 'A' %}bg-success-subtle
+                    {% elif grade == 'B' %}bg-primary-subtle
+                    {% elif grade == 'C' %}bg-info-subtle
+                    {% elif grade == 'D' %}bg-warning-subtle
+                    {% elif grade == 'F' %}bg-danger-subtle
+                    {% endif %}
+                {% endwith %}">
+                 {{ data.grades|get_item:assignment.id|default:"-" }}
+            </td>
+            {% endfor %}
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+                </div>
+            </div>
 
-    <h3>统计信息</h3>
-    {{ stats.describe|safe }}
-{% else %}
-    <p>暂无数据</p>
-{% endif %}
+            <div class="card-footer bg-light">
+                <div class="d-flex justify-content-between align-items-center">
+                    <small class="text-muted">共 {{ students_data|length }} 名学生</small>
+                    <small class="text-muted">共 {{ assignments|length }} 次作业</small>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/bootstrap-icons/1.10.5/font/bootstrap-icons.min.css">
+</body>
+</html>
