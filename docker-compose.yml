@@ -1,0 +1,35 @@
+version: '3.8'
+
+services:
+  web:
+    build: .
+    env_file: .env
+    volumes:
+      - ./:/app
+      - static_volume:/app/staticfiles
+      - media_volume:/app/media
+      - sqlite_data:/app/db
+    networks:
+      - app_network
+    restart: unless-stopped
+
+  nginx:
+    build: ./nginx
+    ports:
+      - "8080:80"
+    volumes:
+      - static_volume:/app/staticfiles
+      - media_volume:/app/media
+    depends_on:
+      - web
+    networks:
+      - app_network
+
+volumes:
+  static_volume:
+  media_volume:
+  sqlite_data:
+
+networks:
+  app_network:
+    driver: bridge

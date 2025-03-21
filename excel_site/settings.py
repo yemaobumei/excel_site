@@ -90,12 +90,21 @@ MEDIA_URL = '/media/'
 
 # Static
 STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')# Password validation
-# STATICFILES_DIRS = [
-#      os.path.join(BASE_DIR, "static"),
-#  ]
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'static'),
+    os.path.join(BASE_DIR, 'excel_app/static'),  # 应用级静态文件
+]
+
+# 生产环境配置
+if not DEBUG:
+    # 安全中间件（必须）
+    MIDDLEWARE.insert(1, 'whitenoise.middleware.WhiteNoiseMiddleware')
+
+    # 缓存和压缩
+    STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+    WHITENOISE_MAX_AGE = 31536000  # 1年缓存
 SIMPLEUI_DEFAULT_THEME = 'admin.lte.css'
-SIMPLEUI_STATIC_OFFLINE = True
 
 
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
