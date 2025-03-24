@@ -149,6 +149,6 @@ CSRF_TRUSTED_ORIGINS = [
     "http://127.0.0.1:8080",
     "http://ephys.cn:8080"
 ]
-CSRF_COOKIE_DOMAIN = None
-CSRF_COOKIE_SECURE = False
-SESSION_COOKIE_SAMESITE = 'None'  # 对于跨站请求
+# CSRF_COOKIE_DOMAIN = None
+# CSRF_COOKIE_SECURE = False
+# SESSION_COOKIE_SAMESITE = 'None'  # 对于跨站请求
