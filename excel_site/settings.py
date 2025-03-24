@@ -144,12 +144,5 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
 # # csrf
-SESSION_COOKIE_SAMESITE = 'None' if DEBUG else 'Lax'
-CSRF_COOKIE_SAMESITE = 'None' if DEBUG else 'Lax'
-SESSION_COOKIE_HTTPONLY = True
-CSRF_COOKIE_HTTPONLY = False  # JavaScript需要访问CSRF Token时设为False
-# 生产环境必须配置（Django 4.0+）
-CSRF_TRUSTED_ORIGINS = [
-    'http://ephys.cn',
-    'http://www.ephys.cn'
-]
+ALLOWED_ORIGINS = ['http://*', 'https://*']
+CSRF_TRUSTED_ORIGINS = ALLOWED_ORIGINS.copy()
