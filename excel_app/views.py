@@ -112,40 +112,9 @@ def view_data(request):
 
     students_data = []
     for student in students:
-        grades = [s.grade for s in student.scores.all() if s.grade]
-        total = len(grades) or 1  # 避免除零
-
-        # 统计各等级数量
-        grade_count = {
-            'A': grades.count('A'),
-            'B': grades.count('B'),
-            'C': grades.count('C'),
-            'D': grades.count('D'),
-            'F': grades.count('F')
-        }
-
-        students_data.append({
-            'student': student,
-            'grades': grade_count,
-            'total': total
-        })
-
-    return render(request, 'view_data.html', {
-        'assignments': assignments,
-        'students_data': students_data
-    })
-
-def view_data(request):
-    assignments = Assignment.objects.all().order_by('created_at')
-    students = Student.objects.prefetch_related(
-        Prefetch('scores', queryset=Score.objects.select_related('assignment'))
-    ).all().order_by('student_id')
-
-    students_data = []
-    for student in students:
         # 直接读取grade字段值
         grades_dict = {
-            score.assignment_id: score.grade
+            score.assignment_id: score.grade or score.score
             for score in student.scores.all()
         }
         students_data.append({
