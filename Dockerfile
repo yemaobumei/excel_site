@@ -5,11 +5,11 @@ ENV PYTHONUNBUFFERED=1 \
 
 WORKDIR /app
 
-# 配置 pip 镜像源
-RUN mkdir -p /root/.pip && \
-    echo "[global]" > /root/.pip/pip.conf && \
-    echo "index-url = https://pypi.tuna.tsinghua.edu.cn/simple" >> /root/.pip/pip.conf && \
-    echo "trusted-host = pypi.tuna.tsinghua.edu.cn" >> /root/.pip/pip.conf \
+## 配置 pip 镜像源
+#RUN mkdir -p /root/.pip && \
+#    echo "[global]" > /root/.pip/pip.conf && \
+#    echo "index-url = https://pypi.tuna.tsinghua.edu.cn/simple" >> /root/.pip/pip.conf && \
+#    echo "trusted-host = pypi.tuna.tsinghua.edu.cn" >> /root/.pip/pip.conf \
 
 # 创建数据库目录并设置权限
 RUN mkdir -p /app/db && \
