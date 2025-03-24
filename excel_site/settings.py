@@ -23,7 +23,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-l_0jwymwpztreoo&_5s#=a&#kfc%t!j%4pl#@_ipzdgwiqgd@o'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ["*"]
 
@@ -144,12 +144,12 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
 # # csrf
-# SESSION_COOKIE_SAMESITE = 'None' if DEBUG else 'Lax'
-# CSRF_COOKIE_SAMESITE = 'None' if DEBUG else 'Lax'
-# SESSION_COOKIE_HTTPONLY = True
-# CSRF_COOKIE_HTTPONLY = False  # JavaScript需要访问CSRF Token时设为False
-# # 生产环境必须配置（Django 4.0+）
-# CSRF_TRUSTED_ORIGINS = [
-#     'http://ephys.cn',
-#     'http://www.ephys.cn'
-# ]
+SESSION_COOKIE_SAMESITE = 'None' if DEBUG else 'Lax'
+CSRF_COOKIE_SAMESITE = 'None' if DEBUG else 'Lax'
+SESSION_COOKIE_HTTPONLY = True
+CSRF_COOKIE_HTTPONLY = False  # JavaScript需要访问CSRF Token时设为False
+# 生产环境必须配置（Django 4.0+）
+CSRF_TRUSTED_ORIGINS = [
+    'http://ephys.cn',
+    'http://www.ephys.cn'
+]
