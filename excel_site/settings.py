@@ -146,3 +146,6 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # # csrf
 ALLOWED_ORIGINS = ['http://*', 'https://*']
 CSRF_TRUSTED_ORIGINS = ALLOWED_ORIGINS.copy()
+CSRF_COOKIE_DOMAIN = None
+CSRF_COOKIE_SECURE = False
+SESSION_COOKIE_SAMESITE = 'None'  # 对于跨站请求
