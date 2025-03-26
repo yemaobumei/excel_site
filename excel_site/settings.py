@@ -31,6 +31,10 @@ ALLOWED_HOSTS = ["*"]
 # Application definition
 
 INSTALLED_APPS = [
+    # 'admin_interface',
+    # 'colorfield',  # 依赖
+    # 'material',
+    # 'grappelli',
     'simpleui',  # 主要是这个美化页面的
     'django.contrib.admin',
     'django.contrib.auth',
@@ -93,7 +97,7 @@ STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),
-    os.path.join(BASE_DIR, 'excel_app/static'),  # 应用级静态文件
+    # os.path.join(BASE_DIR, 'excel_app/static'),  # 应用级静态文件
 ]
 
 # 生产环境配置
