@@ -11,6 +11,9 @@ services:
       - sqlite_data:/app/db
     networks:
       - app_network
+    dns:
+      - 8.8.8.8
+      - 114.114.114.114
     restart: unless-stopped
 
   nginx:
