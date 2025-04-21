@@ -16,6 +16,8 @@ RUN mkdir -p /app/db && \
     touch /app/db/db.sqlite3 && \
     chmod 666 /app/db/db.sqlite3
 
+# 安装git和其他依赖
+RUN apt-get update && apt-get install -y git vim
 
 # 复制项目文件
 COPY requirements.txt .
