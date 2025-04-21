@@ -9,12 +9,11 @@ services:
       - static_volume:/app/staticfiles
       - media_volume:/app/media
       - sqlite_data:/app/db
-    network_mode: host
-#    networks:
-#      - app_network
-#    dns:
-#      - 8.8.8.8
-#      - 114.114.114.114
+    networks:
+      - app_network
+    dns:
+      - 8.8.8.8
+      - 114.114.114.114
     restart: unless-stopped
 
   nginx:
@@ -26,9 +25,8 @@ services:
       - media_volume:/app/media
     depends_on:
       - web
-#    networks:
-#      - app_network
-    network_mode: host
+    networks:
+      - app_network
 volumes:
   static_volume:
   media_volume:
